@@ -1,0 +1,16 @@
+1. Typescript vs JS? -> JS
+
+2. MUI vs Custom CSS? Styled-Components
+
+3. React v18 vs v17? 17
+
+4. Deploy or no-deploy? No.
+
+5. React Context API vs Redux? State persisting? Ctx API -> localstorage
+
+6. Fetch libraries (Axios, etx) vs UpSkill way (fetch api) -> Fetch API
+
+7. Error handling -> handling forms: Formik/ global err handler (toast notification)
+
+8. Kanban board? V -> FCT-1/branch-name
+
