@@ -19,12 +19,10 @@ const RegisterForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [companyName, setCompanyName] = useState('');
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [errName, setErrName] = useState(null);
     const [errEmail, setErrEmail] = useState(null);
-    const [errCompanyName, setErrCompanyName] = useState(null);
     const [errPassword, setErrPassword] = useState(null);
     const [errRePassword, setErrRePassword] = useState(null);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
@@ -33,17 +31,12 @@ const RegisterForm = () => {
     const isInvalid = () => {
         setErrEmail(null);
         setErrName(null);
-        setErrCompanyName(null);
         setErrPassword(null);
         setErrRePassword(null);
 
         let result = false;
         if (name === '' || name.length < globalConstants.nameMinLength) {
             setErrName(globalConstants.nameRequiremetnsMessage);
-            result = true;
-        }
-        if (companyName === '') {
-            setErrCompanyName(globalConstants.companyRequirementsMessage);
             result = true;
         }
         if (email === '' || !email.match(globalConstants.emailRegularExpression)) {
@@ -69,7 +62,7 @@ const RegisterForm = () => {
         let requestError = false;
         try {
             setIsLoading(true);
-            const userDetails = await signup(email, password, name, companyName);
+            const userDetails = await signup(email, password, name);
 
             if (typeof userDetails === 'string') {
                 requestError = true;

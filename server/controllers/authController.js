@@ -2,13 +2,12 @@ import express from 'express';
 import admin from '../config/firebaseConfig.js';
 
 import { isAuth } from '../middlewares/guards.js';
-import { addOwnerRole } from '../middlewares/claimsMiddleware.js';
 import { errorBuilder } from '../utils/errorBuilder.js';
 import * as controllersConstants from '../globalConstants/controllersConstants.js';
 
 const router = express.Router();
 
-router.post('/register', isAuth(), addOwnerRole(), async (req, res, next) => {
+router.post('/register', isAuth(), async (req, res, next) => {
     const email = req.body.email;
     const fullName = req.body.fullName;
 
@@ -22,8 +21,8 @@ router.post('/register', isAuth(), addOwnerRole(), async (req, res, next) => {
     }
 
     try {
-        await req.auth.register({ email, fullName });
-        res.status(201).json(updatedOwner);
+        const user = await req.auth.register({ email, fullName });
+        res.status(201).json(user);
     } catch (err) {
         next(errorBuilder(err).badRequest(controllersConstants.unSuccessfullyCreatedCompanyMessage));
     }
@@ -35,8 +34,8 @@ router.post('/register/admin', async (req, res, next) => {
     const fullName = req.body.fullName;
 
     try {
-        await req.auth.register({ email, fullName });
-        res.status(201).json(updatedAdmin);
+        const admin = await req.auth.register({ email, fullName });
+        res.status(201).json(admin);
     } catch (err) {
         console.log(err.message);
         next(errorBuilder(err).badRequest(controllersConstants.unSuccessfullyCreatedAdminMessage));

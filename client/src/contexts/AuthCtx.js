@@ -40,9 +40,9 @@ export const AuthProvider = ({ children }) => {
         return await authService.signOut(auth);
     };
 
-    const signup = async (email, password, fullName, companyName) => {
+    const signup = async (email, password, fullName) => {
         const createdUser = await authService.createUserWithEmailAndPassword(auth, email, password); // const createdUser =
-        const userDetails = await userService.addUserRegisterDetails({ email, fullName, companyName });
+        const userDetails = await userService.addUserRegisterDetails({ email, fullName });
 
         if (typeof userDetails === 'string') {
             await authService.deleteUser(auth.currentUser);
